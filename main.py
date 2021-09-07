@@ -1,14 +1,15 @@
 import time
 from itertools import permutations
 import io
+import os
 import msoffcrypto
 
 start = time.time()
 
-filename = "/Users/miguelmorenobaladron/code/brute-force-excel/sample1.xlsx"
-chars = 2
+filename = "/Users/miguelmorenobaladron/code/brute-force-excel/manuelito1.xlsx"
+chars = 3
 
-perms = [''.join(p) for p in permutations('abcdefghijklmnopqrstuwxyz', chars)]
+perms = [''.join(p) for p in permutations('aabcdefghijklmnopqrstuwxyz', chars)]
 
 print(f'Starting to try passwords with {chars} number of chars')
 
@@ -22,7 +23,9 @@ for random_pass in perms:
             office_file.load_key(password=random_pass)
             office_file.decrypt(decrypted_workbook)
             print(f'The correct password is {random_pass}')
-            break;
+            with open(f'./maybe/{random_pass}', 'w'):
+                pass
+            # break;
     except:
         print(f'Password {random_pass} is incorrect')
 
